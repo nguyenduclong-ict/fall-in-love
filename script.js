@@ -1,3 +1,4 @@
+let yes = false;
 let clickedCounts = 0;
 let switchAfter = Math.floor(Math.random() * 5) + 1;
 
@@ -5,14 +6,14 @@ window.onload = () => {
   const search = new URLSearchParams(window.location.search);
   const m = search.get("m");
   const s = search.get("ok") || "HIHI";
-  const okeText = search.get("ok_text") || "Có";
-  const noText = search.get("no_text") || "Không";
+  const okeText = search.get("bok") || "Có";
+  const noText = search.get("bno") || "Không";
+  const all = search.get("all");
   const text = document.querySelector("#text");
   const btnOk = document.querySelector("#btn-ok"),
     btnNo = document.querySelector("#btn-no");
 
-  console.log({ btnOk, btnNo });
-
+  document.hasFocus() && btnOk.focus();
   const randomEffect = () => {
     const effects = [
       "bounce",
@@ -36,7 +37,8 @@ window.onload = () => {
   btnOk.value = okeText;
   btnNo.value = noText;
 
-  btnOk.addEventListener("click", function () {
+  const onBtnOkClick = function () {
+    yes = true;
     text.innerHTML = s;
     text.style["font-size"] = "128px";
     btnNo.style.display = "none";
@@ -45,38 +47,39 @@ window.onload = () => {
       animateCSS(text, randomEffect()).then(loop);
     };
     loop();
-  });
+  };
 
-  btnNo.addEventListener("click", function () {
-    btnNo.style.position = "fixed";
+  const onBtnNoClick = function () {
+    const _btnNo = this;
+    const _btnOk = btnNo !== _btnNo ? btnNo : btnOk;
+    _btnNo.style.position = "fixed";
     clickedCounts++;
 
-    console.log(switchAfter, clickedCounts);
-    if (switchAfter === clickedCounts) {
-      const top = btnNo.getBoundingClientRect().top,
-        left = btnNo.getBoundingClientRect().left;
+    if (switchAfter === clickedCounts && all !== "no") {
+      const top = _btnNo.getBoundingClientRect().top,
+        left = _btnNo.getBoundingClientRect().left;
+      _btnNo.style.top = _btnOk.getBoundingClientRect().top + "px";
+      _btnNo.style.left = _btnOk.getBoundingClientRect().left + "px";
 
-      console.log(top, left);
-
-      btnNo.style.top = btnOk.getBoundingClientRect().top + "px";
-      btnNo.style.left = btnOk.getBoundingClientRect().left + "px";
-
-      btnOk.style.position = "fixed";
-      btnOk.style.top = top + "px";
-      btnOk.style.left = left + "px";
+      _btnOk.style.position = "fixed";
+      _btnOk.style.top = top + "px";
+      _btnOk.style.left = left + "px";
 
       clickedCounts = 0;
       switchAfter = Math.floor(Math.random() * 5) + 1;
     } else {
-      btnNo.style.top =
-        Math.max(Math.random() * window.innerHeight - btnNo.clientHeight, 0) +
+      _btnNo.style.top =
+        Math.max(Math.random() * window.innerHeight - _btnNo.clientHeight, 0) +
         "px";
-      btnNo.style.left =
-        Math.max(Math.random() * window.innerWidth - btnNo.clientWidth, 0) +
+      _btnNo.style.left =
+        Math.max(Math.random() * window.innerWidth - _btnNo.clientWidth, 0) +
         "px";
     }
-    animateCSS(btnNo, randomEffect());
-  });
+    animateCSS(_btnNo, randomEffect());
+  };
+
+  btnOk.addEventListener("click", all === "no" ? onBtnNoClick : onBtnOkClick);
+  btnNo.addEventListener("click", all === "ok" ? onBtnOkClick : onBtnNoClick);
 };
 
 const animateCSS = (element, animation, prefix = "animate__") =>
