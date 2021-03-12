@@ -19,6 +19,8 @@ var app = new Vue({
       question: "",
       id: "",
       message: "",
+      yt: "Có",
+      nt: "Không",
       copied: false,
     };
   },
@@ -29,6 +31,8 @@ var app = new Vue({
         q: this.question,
         m: this.message,
         id: this.id,
+        nt: this.nt,
+        yt: this.yt,
       });
       return (
         "https://nguyenduclong-ict.github.io/fall-in-love" +
