@@ -20,7 +20,7 @@ body {
 
 body #text {
   padding: 0 50px;
-  font-size: 64px;
+  font-size: 4rem;
   margin-bottom: 100px;
   background: -webkit-linear-gradient(#eee, #ff5572);
   -webkit-background-clip: text;

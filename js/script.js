@@ -79,7 +79,7 @@ window.onload = () => {
   const onBtnOkClick = function () {
     yesCounts++;
     text.innerHTML = m;
-    text.style["font-size"] = "128px";
+    text.style["font-size"] = "96px";
     btnNo.style.display = "none";
     btnOk.style.display = "none";
     saveAnswer();
