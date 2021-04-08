@@ -38,17 +38,41 @@
         <br />
         <input v-model="id" type="text" />
         <br />
-        <label for="all" style="cursor: pointer">
+        <label for="all-no" style="cursor: pointer">
           <input
             v-model="all"
-            type="checkbox"
+            type="radio"
             style="min-width: auto"
-            id="all"
+            id="all-no"
+            value="no"
           />
           <span>
             Tất cả các nút là
             <b>NO</b>
           </span>
+        </label>
+        <label for="all-yes" style="cursor: pointer">
+          <input
+            v-model="all"
+            type="radio"
+            style="min-width: auto"
+            id="all-yes"
+            value="yes"
+          />
+          <span>
+            Tất cả các nút là
+            <b>YES</b>
+          </span>
+        </label>
+        <label for="all-none" style="cursor: pointer">
+          <input
+            v-model="all"
+            type="radio"
+            style="min-width: auto"
+            id="all-none"
+            value=""
+          />
+          <span>Không</span>
         </label>
         <br />
         <button type="button" @click="copy">Copy link</button>
