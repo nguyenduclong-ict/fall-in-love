@@ -21,23 +21,21 @@ var app = new Vue({
       message: "",
       yt: "Có",
       nt: "Không",
+      all: false,
       copied: false,
     };
   },
 
   computed: {
     link() {
-      const search = new URLSearchParams({
-        q: this.question,
-        m: this.message,
-        id: this.id,
-        nt: this.nt,
-        yt: this.yt,
-      });
-      return (
-        "https://nguyenduclong-ict.github.io/fall-in-love" +
-        (search.toString() ? "?" + search.toString() : "")
-      );
+      const url = new URL("https://nguyenduclong-ict.github.io/fall-in-love");
+      url.searchParams.append("q", this.question);
+      url.searchParams.append("m", this.message);
+      url.searchParams.append("id", this.id);
+      url.searchParams.append("nt", this.nt);
+      url.searchParams.append("yt", this.yt);
+      if (this.all) url.searchParams.append("all", this.all);
+      return url.toString();
     },
   },
 

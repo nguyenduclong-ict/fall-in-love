@@ -38,6 +38,18 @@
         <br />
         <input v-model="id" type="text" />
         <br />
+        <label for="all" style="cursor: pointer">
+          <input
+            v-model="all"
+            type="checkbox"
+            style="min-width: auto"
+            id="all"
+          />
+          <span>
+            Tất cả các nút là
+            <b>NO</b>
+          </span>
+        </label>
         <br />
         <button type="button" @click="copy">Copy link</button>
         <span v-if="copied">Đã sao chép</span>
